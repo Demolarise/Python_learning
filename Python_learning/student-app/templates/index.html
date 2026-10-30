@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DEMMY-Student Management System</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form.student-form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-button {
+            grid-column: 1 / -1;
+            background: #2563eb;
+            color: white;
+        }
+
+        .delete-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>DEMMY-Student Management System</h1>
+
+    <h2>Add Student</h2>
+
+    <form
+        class="student-form"
+        action="/students"
+        method="POST"
+    >
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Student Name"
+            required
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
+
+        <input
+            type="number"
+            name="age"
+            placeholder="Age"
+        >
+
+        <input
+            type="text"
+            name="course"
+            placeholder="Course"
+            required
+        >
+
+        <button
+            class="add-button"
+            type="submit"
+        >
+            Add Student
+        </button>
+
+    </form>
+
+
+    <h2>Students</h2>
+
+    <table>
+
+        <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td>
+                {{ student["id"] }}
+            </td>
+
+            <td>
+                {{ student["name"] }}
+            </td>
+
+            <td>
+                {{ student["email"] }}
+            </td>
+
+            <td>
+                {{ student["age"] or "" }}
+            </td>
+
+            <td>
+                {{ student["course"] }}
+            </td>
+
+            <td>
+
+                <form
+                    action="/students/{{ student['id'] }}/delete"
+                    method="POST"
+                >
+
+                    <button
+                        class="delete-button"
+                        type="submit"
+                    >
+                        Delete
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="6">
+                No students have been added yet.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
