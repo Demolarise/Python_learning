@@ -3,7 +3,7 @@ name: Student App Docker CI
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
 
